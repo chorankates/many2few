@@ -21,8 +21,10 @@ my %s = (
     max_file_size => 1_048_576 * 10, # limiting to 10mb 
     max_dir_size  => 1_048_576 * 1_000, # limiting to 1gb
     
-    dropbox => '/home/conor/scratch/many2few/', # final resting place
-    upload_log =>'/home/conor/scratch/many2few/upload.log',
+    dropbox => '/tmp/many2few/',
+    upload_log => '/tmp/many2few/upload.log',
+    #dropbox => '/home/conor/scratch/many2few/', # final resting place
+    #upload_log =>'/home/conor/scratch/many2few/upload.log',
 );
 
 print(
@@ -77,7 +79,7 @@ unless (param()) {
         # now need to push it onto the CSV file -- maintain the schema by not pushing the entire ref blindly
         write_csv($p{user}, $p{description}, $md5, $p{file});
         
-        copy($p{filename}, $s{dropbox}) or warn "WARN:: unable to copy file to $s{dropbox}: $!";
+        copy($message, $s{dropbox}) or warn "WARN:: unable to copy file to $s{dropbox}: $!";
         
     } else {
     
@@ -86,12 +88,14 @@ unless (param()) {
 
 }
 
-print(
-    "</div>", # closing main div
-    "<div class='footer'>",
-    "some text goes here",
-    "</div>",
-);
+if (0) {
+    print(
+        "</div>", # closing main div
+        "<div class='footer'>",
+        "some text goes here",
+        "</div>",
+    );
+}
 
 ## cleanup
 
