@@ -1,0 +1,70 @@
+/* general stuff */
+body {
+    background-color: white;
+    /*font-family: monospace;*/
+    font-family: tahoma;
+    font-size: 12pt;
+    
+    padding-left: 50px; /* designers are supposed to love whitespace, right? */
+    padding-right: 50px;
+}
+
+img { border: 0px; }
+
+/* header handling goes here */
+h2 { font-size: x-large; margin: 0; }
+h3 { font-size: larger;  margin: 0; }
+
+/* table handling here */
+
+/* divs go here */
+
+div.header {
+    /* do some coloring */
+    background-color: #002E4A; /* dark blue */
+    color: white;
+}
+
+div.main {
+    /* do some coloring */
+    background-color: #FFFFFF; /* lighter blue */
+    color: black;
+    
+    /* do some sizing */
+    
+
+    padding-bottom: 200px;
+}
+
+div.footer {
+    /* do some coloring */
+    background-color: #B12213; /* grayish white */
+    color: white;
+    
+    /* do some sizing */
+    /*padding-bottom: 100px;*/
+    padding-top: 100px; /* this isn't really the way i wanted to do this, but it'll work for now
+    
+    /* making the font smaller here too */
+    font-size: small;
+    
+    text-align: right;
+    
+}
+
+
+/* link handling goes here -- always keep links the same color as they were created, underline when hovered */
+a:link    {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover   {
+    color: inherit;
+    text-decoration: underline;
+}

@@ -1,0 +1,6 @@
+many2few is a simple CGI application that allows 'many' to upload arbitrary files to a 'few' people. the intention is that the destination directory would be a Dropbox or otherwise sync'd folder to enable collaboration.
+
+features:
+    - specify file types to accept (blacklist or whitelist)
+    - specify maximum file size
+    - files uploaded are added to a CSV file (SQLite db later versions) along with source IP, name and description
