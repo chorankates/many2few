@@ -3,12 +3,13 @@
 
 use strict;
 use warnings;
-use Fcntl qw/:DEFAULT :flock/; # for uploading files
 
 use CGI ':standard';
 use DBI;
 use Digest::MD5;
 use File::Basename;
+use File::Copy;
+use Fcntl qw/:DEFAULT :flock/; # for uploading files
 
 ## initalize some variables
 my %s = (
@@ -63,7 +64,7 @@ unless (param()) {
     print "<h2>unknown function</h2>" unless $p{function} eq 'upload';
 
     print "we received:\n";
-    print "<table><th><td>key<td><td>value</td></th>\n";
+    print "<table><tr><td><strong>key<strong><td><td><strong>value<strong></td></tr>\n";
     print "<tr><td>$_</td><td>$p{$_}</td></tr>\n" foreach (keys %p);
     print "</table>";
 
@@ -76,7 +77,7 @@ unless (param()) {
         # now need to push it onto the CSV file -- maintain the schema by not pushing the entire ref blindly
         write_csv($p{user}, $p{description}, $md5, $p{file});
         
-        move($p{filename}, $s{dropbox});
+        copy($p{filename}, $s{dropbox}) or warn "WARN:: unable to copy file to $s{dropbox}: $!";
         
     } else {
     
