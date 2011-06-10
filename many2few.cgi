@@ -32,18 +32,31 @@ unless (param()) {
     # display the main page
    
     print(
-        "<form action='/cgi-bin/many2few.cgi'>",
-        "<table>",
-        "<tr><td>your name:</td><td><input name='user'>",
-        "<tr><td>description:</td><td><input name='description'>",
-        "<tr><td>file to upload:</td><td><input type=file size=75 name='file'></tr>",
-        "<tr><td>&nbsp;</td><td><input type='submit'></td>",
+        "<form action='/cgi-bin/many2few.cgi' METHOD='POST' ENCTYPE='multipart/form-data'>",
+	"<input name='function' type='hidden'\n>",
+        "<table>\n",
+        "<tr><td>your name:</td><td><input name='user'>\n",
+        "<tr><td>description:</td><td><input name='description'>\n",
+        "<tr><td>file to upload:</td><td><input type=file size=75 name='file'></tr>\n",
+        "<tr><td>&nbsp;</td><td><input type='submit'></td>\n",
         "</table>",
         "</form>",
     );
     
 } else {
     # file being uploaded
+    my @parameters = param();
+    my %p;
+    $p{$_} = param($_) foreach (@parameters);
+
+    print "we received:\n";
+    print "<table><th><td>key<td><td>value</td></th>\n";
+    print "<tr><td>$_</td><td>$p{$_}</td></tr>\n" foreach (keys %p);
+    print "</table>";
+
+    my $md5 = '';
+    
+
 }
 
 print(
