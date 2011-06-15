@@ -33,6 +33,7 @@ my %s = (
 	wanted => [
 	    '\.doc$',
 	    '\.txt$',
+	    '\.pl$',
 	],
 	unwanted => [ 
 	    '\.zip$',
@@ -82,21 +83,20 @@ unless (param()) {
 } else {
     # file being uploaded
 	my $q = new CGI;
-    my @parameters = param();
-    my %p;
-    #$p{$_} = param($_) foreach (@parameters);
-	$p{member} = $q->param('member');
+	my @parameters = param();
+	my %p;
+	#$p{$_} = param($_) foreach (@parameters);
 	$p{function} = $q->param('function');
 	$p{file} = param('file');
 
-    print "<h2>unknown function</h2>" unless $p{function} eq 'upload';
+	print "<h2>unknown function</h2>" unless $p{function} eq 'upload';
 
     # security until it can be hardened
     #print "we received:\n";
     #print "<table><tr><td><strong>key<strong><td><td><strong>value<strong></td></tr>\n";
     #print "<tr><td>$_</td><td>$p{$_}</td></tr>\n" foreach (keys %p);
     #print "</table>";
-    $s{outfile} = $p{member} . '__' . $p{file};
+	$s{outfile} = $p{file};
     
     #my ($results,$message) = write_file($s{dest_dir}, $p{file});
 	my ($results,$message) = write_file($s{dest_dir}, $q);
@@ -110,7 +110,7 @@ unless (param()) {
         write_csv($p{member}, $md5, $s{outfile});
         
         #copy($message, $s{dropbox} . $s{outfile}) or warn "WARN:: unable to copy file to $s{dropbox}: $!";
-	#print "> message: $message\n<br>";
+	print "> message: $message\n<br>";
         #unlink($message);
 		
     } else {
