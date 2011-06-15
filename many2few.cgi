@@ -27,6 +27,20 @@ my %s = (
     #upload_log => '/tmp/many2few/upload.log',
     dropbox => '/home/conor/Dropbox/scratch/many2few/', # final resting place
     upload_log =>'/home/conor/scratch/many2few-upload.log',
+
+    # need to externalize all settings, eventually
+    regex => {
+	wanted => [
+	    '\.doc$',
+	    '\.txt$',
+	],
+	unwanted => [ 
+	    '\.zip$',
+	    '\.exe$',
+	    '.*', # wanted will override unwanted, so do we really need an unwanted list?
+	],
+    },
+
 );
 
 $CGI::DISABLE_UPLOADS = 0;
@@ -206,16 +220,19 @@ sub write_csv {
     return $results;
 }
 
+# could move this to a library for testing
 sub is_wanted {
     # is_wanted($filename) - returns 0|1 on whether we want the file they are trying to upload
     my $file    = shift;
-    my $results = 0;
-    
-    $results = 1; # hardcoding yes for now
-    
-    return $results;    
+
+    foreach my $wanted (@{$s{regex}{wanted}}) {
+	return 1 if $file =~ /$wanted/;
+    }
+
+    return 0; 
 }
 
+# could move this to a library for testing
 sub get_md5 {
     # get_md5($ffp) - returns an md5 or ? based on criteria
     my $ffp = shift;
